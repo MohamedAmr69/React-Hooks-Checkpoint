@@ -14,14 +14,22 @@ const AddMovieForm = ({ onSubmit }) => {
     setRating("");
   };
 
+  const handleRatingChange = (e) => {
+    const inputRating = e.target.value;
+    // Ensure rating is between 1 and 10
+    if (!isNaN(inputRating) && inputRating >= 1 && inputRating <= 10) {
+      setRating(inputRating);
+    }
+  };
+
   return (
     <Container className="mt-4">
       <Row>
-        <Col>
+        <Col md={{ span: 6, offset: 3 }}>
           <h2>Add New Movie</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="title">
-              <Form.Label>Title</Form.Label>
+              <Form.Label className="mb-0">Title</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter title"
@@ -30,7 +38,7 @@ const AddMovieForm = ({ onSubmit }) => {
               />
             </Form.Group>
             <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="mb-0">Description</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -40,12 +48,14 @@ const AddMovieForm = ({ onSubmit }) => {
               />
             </Form.Group>
             <Form.Group controlId="rating">
-              <Form.Label>Rating</Form.Label>
+              <Form.Label className="mb-0">Rating</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter rating"
+                placeholder="Enter rating (1-10)"
+                min="1"
+                max="10"
                 value={rating}
-                onChange={(e) => setRating(e.target.value)}
+                onChange={handleRatingChange}
               />
             </Form.Group>
             <Button variant="primary" type="submit">
